@@ -4,18 +4,27 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+    
+    showSearchPage: false,
+    currentlyReading: [],
+    wantToRead: [],
+    read: [],
+  
   }
 
-  getAllBooks = () => {
-  	const allbooks = getAll();
-    console.log(allbooks)
+  getAllShelvedBooks = () => {
+  	const allShelvedBooks = getAll().then((value) => {
+    	value.forEach((book) => {
+        	
+          const bookShelfValue = book.shelf;
+          //put into right data structure
+          
+        })
+    })
+    .catch((err) => {
+    	console.log(`Watch out captain, we have this err ${err}`);
+    });
+    console.log(this.state)
   }
 
   render() {
@@ -46,7 +55,7 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
-          	  <button onClick={() => this.getAllBooks()}>ClickMe</button>
+          	  <button onClick={() => this.getAllShelvedBooks()}>ClickMe</button>
             </div>
             <div className="list-books-content">
               <div>
