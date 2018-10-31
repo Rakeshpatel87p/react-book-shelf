@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import { getAll } from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -11,6 +11,11 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false
+  }
+
+  getAllBooks = () => {
+  	const allbooks = getAll();
+    console.log(allbooks)
   }
 
   render() {
@@ -41,6 +46,7 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
+          	  <button onClick={() => this.getAllBooks()}>ClickMe</button>
             </div>
             <div className="list-books-content">
               <div>
