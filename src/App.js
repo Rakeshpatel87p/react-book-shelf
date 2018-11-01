@@ -3,6 +3,13 @@ import { getAll } from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
+  //pass data via props to appropriate component
+  //set propType
+  constructor(props) {
+	super(props);
+    this.sortAllShelvedBooks();
+  }
+  
   state = {
     
     showSearchPage: false,
@@ -21,7 +28,6 @@ class BooksApp extends React.Component {
     .catch((err) => {
     	console.log(`Watch out captain, we have this err ${err}`);
     });
-    console.log(this.state);
   }
 
   render() {
