@@ -12,19 +12,16 @@ class BooksApp extends React.Component {
   
   }
 
-  getAllShelvedBooks = () => {
+  sortAllShelvedBooks = () => {
   	const allShelvedBooks = getAll().then((value) => {
-    	value.forEach((book) => {
-        	
-          const bookShelfValue = book.shelf;
-          //put into right data structure
-          
+    	value.forEach((book) => {	
+          this.state[book.shelf].push(book) //for object, finding key value;
         })
     })
     .catch((err) => {
     	console.log(`Watch out captain, we have this err ${err}`);
     });
-    console.log(this.state)
+    console.log(this.state);
   }
 
   render() {
@@ -55,7 +52,7 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
-          	  <button onClick={() => this.getAllShelvedBooks()}>ClickMe</button>
+          	  <button onClick={() => this.sortAllShelvedBooks()}>ClickMe</button>
             </div>
             <div className="list-books-content">
               <div>
