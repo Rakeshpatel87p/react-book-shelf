@@ -6,10 +6,6 @@ import BookShelf from './BookShelf'
 class BooksApp extends React.Component {
   //pass data via props to appropriate component
   //set propType
-  constructor(props) {
-	super(props);
-    this.sortAllShelvedBooks();
-  }
   
   state = {
     showSearchPage: false,
@@ -18,10 +14,13 @@ class BooksApp extends React.Component {
     read: [],  
   }
 
-  sortAllShelvedBooks = () => {
-  	const allShelvedBooks = getAll().then((value) => {
+  componentDidMount() {
+  	getAll().then((value) => {
     	value.forEach((book) => {	
-          this.state[book.shelf].push(book) //for object, finding key value;
+          this.setState(() => (
+          	this.state[book.shelf].push(book)
+          ))
+          //this.state[book.shelf].push(book) //for object, finding key value;
         })
     })
     .catch((err) => {
@@ -54,7 +53,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-			<BookShelf shelvedBooks/>
+          	<div>
+				<BookShelf shelvedBooks={this.state.currentlyReading}/>
+			</div>
         )}
       </div>
     	)

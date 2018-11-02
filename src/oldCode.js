@@ -1,7 +1,6 @@
           	<div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
-          	  <button onClick={() => this.sortAllShelvedBooks()}>ClickMe</button>
             </div>
             <div className="list-books-content">
               <div>

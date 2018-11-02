@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-class BookShelf extends React.component {
+class BookShelf extends Component {
 	render() {
-    	return (
-          {
-          	
-          }
-        )
+      
+      const { shelvedBooks } = this.props;
+      console.log({shelvedBooks});
+
+      const bookTitles = shelvedBooks.map(book => (
+        <li key={book.id}>
+       		<p>{book.title}</p>
+        </li>
+      ))
+		console.log(shelvedBooks);
+		console.log(bookTitles)
+    	return <ul>{bookTitles}</ul>
     }
 }
 
