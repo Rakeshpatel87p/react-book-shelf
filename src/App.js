@@ -60,12 +60,15 @@ class BooksApp extends React.Component {
                 <div className="list-books-content">
                     <BookShelf 
                         listOfBooks={this.state.currentlyReading}
+						shelfValue="Currently Reading"
                     />
                     <BookShelf 
                         listOfBooks={this.state.wantToRead}
+						shelfValue="Want to Read"
                     />
                     <BookShelf 
                         listOfBooks={this.state.read}
+						shelfValue="Read"
                     />
                 </div>
 			</div>

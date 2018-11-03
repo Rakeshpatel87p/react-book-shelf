@@ -28,7 +28,7 @@ class BookShelf extends Component {
 
     	return (
         	<div className="bookshelf">
-            	<h2 className="bookshelf-title">Title of Shelf</h2>
+            	<h2 className="bookshelf-title">{this.props.shelfValue}</h2>
             	<div className="bookshelf-books">
                     <ol className="books-grid">
           				{bookCards}	
