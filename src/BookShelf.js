@@ -4,16 +4,18 @@ import BookShelfChanger from './BookShelfChanger';
 class BookShelf extends Component {
 	render() {
       
-      const { listOfBooks } = this.props;
+      const { listOfBooks, bookHasMoved } = this.props;
     
 
       const bookCards = listOfBooks.map(book => (
-        <li>
+        <li key={book.id}>
           <div className="book">
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")` }}></div>
 			  <BookShelfChanger 
               	shelfValue = {this.props.stateValue}
+				book = {book}
+				bookHasMoved = {bookHasMoved}
          	  />
             </div>
             <div className="book-title">{book.title}</div>

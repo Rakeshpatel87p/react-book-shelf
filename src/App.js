@@ -9,12 +9,14 @@ class BooksApp extends React.Component {
   
   state = {
     showSearchPage: false,
+    bookHasMoved: false,
     currentlyReading: [],
     wantToRead: [],
     read: [],  
   }
 
   componentDidMount() {
+    this.setState({bookHasMoved: false});
   	getAll().then((value) => {
     	value.forEach((book) => {	
           this.setState(() => (
@@ -26,6 +28,19 @@ class BooksApp extends React.Component {
     .catch((err) => {
     	console.log(`Watch out captain, we have an err: ${err}`);
     });
+  }
+
+  bookHasMoved = (book, newShelfValue) => {
+  	console.log(book);
+    const oldShelfValue = book.shelf;
+    const bookTitle = book.title;
+    const arrayToRemoveBook = this.state[oldShelfValue]
+
+    const testCase = arrayToRemoveBook.filter((book, index) => {
+    	return book.title === bookTitle;
+    })
+    console.log(testCase);
+    this.setState({bookHasMoved: true})
   }
 
   render() {
@@ -62,16 +77,19 @@ class BooksApp extends React.Component {
                         listOfBooks={this.state.currentlyReading}
 						stateValue = 'currentlyReading'
 						shelfValue="Currently Reading"
+						bookHasMoved={this.bookHasMoved}
                     />
                     <BookShelf 
                         listOfBooks={this.state.wantToRead}
 						stateValue = 'wantToRead'
 						shelfValue="Want to Read"
+						bookHasMoved={this.bookHasMoved}
                     />
                     <BookShelf 
                         listOfBooks={this.state.read}
 						stateValue = 'read'
 						shelfValue="Read"
+						bookHasMoved={this.bookHasMoved}
                     />
                 </div>
 			</div>
