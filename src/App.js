@@ -53,12 +53,21 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          	<div>
-				<BookShelf 
-          			currentlyReading={this.state.currentlyReading}
-					wantToRead={this.state.wantToRead}
-					read={this.state.read}
-				/>
+          	<div className="list-books">
+            	<div className="list-books-title">
+              		<h1>MyReads</h1>
+            	</div>
+                <div className="list-books-content">
+                    <BookShelf 
+                        listOfBooks={this.state.currentlyReading}
+                    />
+                    <BookShelf 
+                        listOfBooks={this.state.wantToRead}
+                    />
+                    <BookShelf 
+                        listOfBooks={this.state.read}
+                    />
+                </div>
 			</div>
         )}
       </div>

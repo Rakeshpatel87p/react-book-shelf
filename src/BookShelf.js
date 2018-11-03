@@ -3,15 +3,39 @@ import React, { Component } from 'react';
 class BookShelf extends Component {
 	render() {
       
-      const { currentlyReading, wantToRead, read } = this.props;
+      const { listOfBooks } = this.props;
 
-      const bookTitles = wantToRead.map(book => (
-        <li key={book.id}>
-       		<p>{book.title}</p>
+      const bookCards = listOfBooks.map(book => (
+        <li>
+          <div className="book">
+            <div className="book-top">
+              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")` }}></div>
+              <div className="book-shelf-changer">
+                <select>
+                  <option value="move" disabled>Move to...</option>
+                  <option value="currentlyReading">Currently Reading</option>
+                  <option value="wantToRead">Want to Read</option>
+                  <option value="read">Read</option>
+                  <option value="none">None</option>
+                </select>
+              </div>
+            </div>
+            <div className="book-title">{book.title}</div>
+            <div className="book-authors">{book.authors[0]}</div>
+          </div>
         </li>
       ))
-		console.log(bookTitles)
-    	return <ul>{bookTitles}</ul>
+
+    	return (
+        	<div className="bookshelf">
+            	<h2 className="bookshelf-title">Title of Shelf</h2>
+            	<div className="bookshelf-books">
+                    <ol className="books-grid">
+          				{bookCards}	
+					</ol>
+				</div>
+			</div>
+        )
     }
 }
 
