@@ -59,12 +59,16 @@ class BooksApp extends React.Component {
       })
   }
 
+  returnToShelves = () => {
+  	this.setState({ showSearchPage: false })
+  }
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
        		
-       		<SearchBooks />
+       		<SearchBooks returnToShelves={this.returnToShelves} />
        
         ) : (
           	<div className="list-books">
