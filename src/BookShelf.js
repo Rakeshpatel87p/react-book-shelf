@@ -5,7 +5,6 @@ class BookShelf extends Component {
   	render() {
       
     	const { listOfBooks, bookHasMoved, stateValue, shelfValue } = this.props;
-
   		const bookCards = listOfBooks.map((book) =>
             	<BookCard 
                   book={book}

@@ -1,5 +1,6 @@
 import React from 'react';
 import {search} from './BooksAPI';
+import BookCard from './BookCard';
 
 class SearchBooks extends React.Component {
 	state = {
@@ -15,9 +16,19 @@ class SearchBooks extends React.Component {
 
 	queryForBooks = (query) => {
 		search(query, 10)
-      	  .then((res) => {
-        	console.log(res);
-          }) 	  
+      	  .then(res => {
+			!res ? console.log('Book Data has not arrived') : this.bookCards(res)
+          })
+    }
+
+   bookCards = (bookResults) => {
+   		const bookCards = bookResults.map((book) => {
+        <BookCard 
+          book={book}
+          bookHasMoved={this.props.bookHasMoved}
+          stateValue={this.props.stateValue}
+        />
+      })
     }
   
   render() {    
