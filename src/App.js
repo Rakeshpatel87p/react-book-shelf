@@ -1,46 +1,59 @@
 import React from 'react'
-import { getAll } from './BooksAPI'
+import { getAll, update } from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 
 class BooksApp extends React.Component {
-  //pass data via props to appropriate component
-  //set propType
-  
-  state = {
-    showSearchPage: false,
-    bookHasMoved: false,
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],  
+  constructor(props) {
+  	super(props);
+    this.state = {
+      showSearchPage: false,
+      currentlyReading: [],
+      wantToRead: [],
+      read: [],  
+    }
+    this.baseState = this.state;
   }
 
   componentDidMount() {
-    this.setState({bookHasMoved: false});
-  	getAll().then((value) => {
-    	value.forEach((book) => {	
-          this.setState(() => (
-          	this.state[book.shelf].push(book)
-          ))
-          //this.state[book.shelf].push(book) //for object, finding key value;
-        })
-    })
-    .catch((err) => {
-    	console.log(`Watch out captain, we have an err: ${err}`);
-    });
+	this.organizeBooks();
+  }
+ 
+  organizeBooks = () => {
+    //{ myArray: [...this.state.myArray, 'new value'] }
+      getAll().then((value) => {
+          value.forEach((book) => {	
+            //this.state[book.shelf].push(book)
+            const bookShelf = this.state[book.shelf];
+            console.log(bookShelf);
+            console.log([...this.state.bookShelf]);
+            this.setState({bookShelf : [...this.state.bookShelf], book})
+          })
+      	  //this.setState(this.state);
+      })
+      .catch((err) => {
+          console.log(`Watch out captain, we have an err: ${err}`);
+      })
   }
 
-  bookHasMoved = (book, newShelfValue) => {
-  	console.log(book);
-    const oldShelfValue = book.shelf;
-    const bookTitle = book.title;
-    const arrayToRemoveBook = this.state[oldShelfValue]
+  clearBookShelves = () => {
+  	const resetStateValue = {
+     	currentlyReading: [],
+      	wantToRead: [],
+        read: []
+    }
+    
+    this.setState(resetStateValue);
+  }
 
-    const testCase = arrayToRemoveBook.filter((book, index) => {
-    	return book.title === bookTitle;
+  bookHasMoved = (book, shelf, oldShelf) => {
+    update(book, shelf).then((res) => {
+        this.clearBookShelves();
+        this.organizeBooks();
     })
-    console.log(testCase);
-    this.setState({bookHasMoved: true})
+    .catch((err) => {
+          console.log(`Watch out captain, we have an err: ${err}`);
+      })
   }
 
   render() {
@@ -51,16 +64,7 @@ class BooksApp extends React.Component {
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
               <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
                 <input type="text" placeholder="Search by title or author"/>
-
               </div>
             </div>
             <div className="search-books-results">
