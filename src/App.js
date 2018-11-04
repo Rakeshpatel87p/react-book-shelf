@@ -8,11 +8,10 @@ class BooksApp extends React.Component {
   	super(props);
     this.state = {
       showSearchPage: false,
+      read: [],
       currentlyReading: [],
-      wantToRead: [],
-      read: [],  
+      wantToRead: []
     }
-    this.baseState = this.state;
   }
 
   componentDidMount() {
@@ -21,15 +20,19 @@ class BooksApp extends React.Component {
  
   organizeBooks = () => {
     //{ myArray: [...this.state.myArray, 'new value'] }
+    
+      const bookShelves = {
+      	read: [],
+        currentlyReading: [],
+        wantToRead: []
+      }
       getAll().then((value) => {
           value.forEach((book) => {	
-            //this.state[book.shelf].push(book)
-            const bookShelf = this.state[book.shelf];
-            console.log(bookShelf);
-            //console.log([...this.state.bookShelf]);
-            //this.setState({bookShelf : [...this.state.bookShelf], book})
+            const bookShelf = book.shelf;
+            bookShelves[bookShelf].push(book)
           })
-      	  //this.setState(this.state);
+
+      	  this.setState({read: bookShelves.read, currentlyReading: bookShelves.currentlyReading, wantToRead: bookShelves.wantToRead });
       })
       .catch((err) => {
           console.log(`Watch out captain, we have an err: ${err}`);
@@ -46,7 +49,7 @@ class BooksApp extends React.Component {
     this.setState(resetStateValue);
   }
 
-  bookHasMoved = (book, shelf, oldShelf) => {
+  bookHasMoved = (book, shelf) => {
     update(book, shelf).then((res) => {
         this.clearBookShelves();
         this.organizeBooks();
