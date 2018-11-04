@@ -8,7 +8,7 @@ class BooksApp extends React.Component {
   constructor(props) {
   	super(props);
     this.state = {
-      showSearchPage: false,
+      showSearchPage: true,
       read: [],
       currentlyReading: [],
       wantToRead: []
