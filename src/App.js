@@ -1,7 +1,8 @@
-import React from 'react'
-import { getAll, update } from './BooksAPI'
-import './App.css'
-import BookShelf from './BookShelf'
+import React from 'react';
+import { getAll, update } from './BooksAPI';
+import './App.css';
+import BookShelf from './BookShelf';
+import SearchBooks from './SearchBooks';
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -19,8 +20,7 @@ class BooksApp extends React.Component {
   }
  
   organizeBooks = () => {
-    //{ myArray: [...this.state.myArray, 'new value'] }
-    
+
       const bookShelves = {
       	read: [],
         currentlyReading: [],
@@ -63,17 +63,9 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author"/>
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
+       		
+       		<SearchBooks />
+       
         ) : (
           	<div className="list-books">
             	<div className="list-books-title">
