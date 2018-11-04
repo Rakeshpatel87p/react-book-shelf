@@ -17,9 +17,9 @@ class BookShelf extends Component {
                             backgroundImage: `url("${book.imageLinks.smallThumbnail}")` }}>
 			  </div>
 			  <BookShelfChanger 
-              	shelfValue = {this.props.stateValue}
-				book = {book}
-				bookHasMoved = {bookHasMoved}
+              	shelfValue={this.props.stateValue}
+				book={book}
+				bookHasMoved={bookHasMoved}
          	  />
             </div>
             <div className="book-title">{book.title}</div>

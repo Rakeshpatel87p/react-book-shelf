@@ -26,8 +26,8 @@ class BooksApp extends React.Component {
             //this.state[book.shelf].push(book)
             const bookShelf = this.state[book.shelf];
             console.log(bookShelf);
-            console.log([...this.state.bookShelf]);
-            this.setState({bookShelf : [...this.state.bookShelf], book})
+            //console.log([...this.state.bookShelf]);
+            //this.setState({bookShelf : [...this.state.bookShelf], book})
           })
       	  //this.setState(this.state);
       })
@@ -79,19 +79,19 @@ class BooksApp extends React.Component {
                 <div className="list-books-content">
                     <BookShelf 
                         listOfBooks={this.state.currentlyReading}
-						stateValue = 'currentlyReading'
+						stateValue='currentlyReading'
 						shelfValue="Currently Reading"
 						bookHasMoved={this.bookHasMoved}
                     />
                     <BookShelf 
                         listOfBooks={this.state.wantToRead}
-						stateValue = 'wantToRead'
+						stateValue='wantToRead'
 						shelfValue="Want to Read"
 						bookHasMoved={this.bookHasMoved}
                     />
                     <BookShelf 
                         listOfBooks={this.state.read}
-						stateValue = 'read'
+						stateValue='read'
 						shelfValue="Read"
 						bookHasMoved={this.bookHasMoved}
                     />
