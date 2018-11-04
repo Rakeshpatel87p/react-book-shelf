@@ -3,7 +3,7 @@ import React from 'react';
 class BookShelfChanger extends React.Component {
 	constructor(props) {
     	super(props);
-      	this.state = {selectedValue: this.props.shelfValue};
+      	this.state = {selectedValue: this.props.stateValue};
       	this.handleChange = this.handleChange.bind(this);
     }
   
