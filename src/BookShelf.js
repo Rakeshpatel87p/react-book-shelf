@@ -1,39 +1,24 @@
 import React, { Component } from 'react';
-import BookShelfChanger from './BookShelfChanger';
+import BookCard from './BookCard'
 
 class BookShelf extends Component {
-	render() {
+  	render() {
       
-     const { listOfBooks, bookHasMoved } = this.props;
- 
-     const bookCards = listOfBooks.map(book => (
-        <li key={book.id}>
-          <div className="book">
-            <div className="book-top">
-              <div className="book-cover" 
-                   style={{ 
-                           	width: 128, 
-                            height: 193, 
-                            backgroundImage: `url("${book.imageLinks.smallThumbnail}")` }}>
-			  </div>
-			  <BookShelfChanger 
-              	shelfValue={this.props.stateValue}
-				book={book}
-				bookHasMoved={bookHasMoved}
-         	  />
-            </div>
-            <div className="book-title">{book.title}</div>
-            <div className="book-authors">{book.authors[0]}</div>
-          </div>
-        </li>
-      ))
+    	const { listOfBooks, bookHasMoved, stateValue, shelfValue } = this.props;
 
+  		const bookCards = listOfBooks.map((book) =>
+            	<BookCard 
+                  book={book}
+                  bookHasMoved={bookHasMoved}
+                  stateValue={stateValue}
+				/>
+           )
     	return (
         	<div className="bookshelf">
-            	<h2 className="bookshelf-title">{this.props.shelfValue}</h2>
+            	<h2 className="bookshelf-title">{shelfValue}</h2>
             	<div className="bookshelf-books">
                     <ol className="books-grid">
-          				{bookCards}	
+                      {bookCards}
 					</ol>
 				</div>
 			</div>

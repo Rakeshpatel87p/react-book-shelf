@@ -17,8 +17,7 @@ class SearchBooks extends React.Component {
 		search(query, 10)
       	  .then((res) => {
         	console.log(res);
-          })
-       	  
+          }) 	  
     }
   
   render() {    
