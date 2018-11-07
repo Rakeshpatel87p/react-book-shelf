@@ -20,7 +20,6 @@ class BooksApp extends React.Component {
   }
  
   organizeBooks = () => {
-
       const bookShelves = {
       	read: [],
         currentlyReading: [],
@@ -32,7 +31,11 @@ class BooksApp extends React.Component {
             bookShelves[bookShelf].push(book)
           })
 
-      	  this.setState({read: bookShelves.read, currentlyReading: bookShelves.currentlyReading, wantToRead: bookShelves.wantToRead });
+      	  this.setState({
+              read: bookShelves.read, 
+              currentlyReading: bookShelves.currentlyReading, 
+              wantToRead: bookShelves.wantToRead 
+          });
       })
       .catch((err) => {
           console.log(`Watch out captain, we have an err: ${err}`);
@@ -56,7 +59,7 @@ class BooksApp extends React.Component {
     })
     .catch((err) => {
           console.log(`Watch out captain, we have an err: ${err}`);
-      })
+    })
   }
 
   returnToShelves = () => {
@@ -69,7 +72,7 @@ class BooksApp extends React.Component {
         {this.state.showSearchPage ? (
        		
        		<SearchBooks returnToShelves={this.returnToShelves} />
-       
+    
         ) : (
           	<div className="list-books">
             	<div className="list-books-title">

@@ -3,38 +3,42 @@ import {search} from './BooksAPI';
 import BookCard from './BookCard';
 
 class SearchBooks extends React.Component {
-	state = {
-      	query: ''
+	constructor(props) {
+    	super(props);
+      	this.state = {
+    		query: '',
+        	searchedForBooks: []
+    	}
+    }
+
+	componentDidMount() {
+    	//this.queryForBooks(this.state.query)
     }
       
     updateQuery = (userInput) => {
-      this.setState(()=> ({
+      this.setState(() => ({
           query: userInput.trim()
       }))
-      this.queryForBooks(this.state.query);
+      this.queryForBooks(userInput);
     }
 
 	queryForBooks = (query) => {
-		search(query, 10)
-      	  .then(res => {
-			!res ? console.log('Book Data has not arrived') : this.bookCards(res)
-          })
+		search(query)
+            .then((res) => (
+            	this.setState(()=> ({
+      				searchedForBooks: res
+    			}))
+            ))
+      console.log(this.state.searchedForBooks)
     }
 
-   bookCards = (bookResults) => {
-   		const bookCards = bookResults.map((book) => {
-        <BookCard 
-          book={book}
-          bookHasMoved={this.props.bookHasMoved}
-          stateValue={this.props.stateValue}
-        />
-      })
-    }
+	//console.log(this.state.searchForBooks);
   
-  render() {    
-      const { query } = this.state;
-
-      return (
+  	render() {    
+    	const { query } = this.state;
+	  	const { bookHasMoved, stateValue } = this.props;
+		
+    return (
        		<div className="search-books">
               <div className="search-books-bar">
                 <a 
@@ -50,7 +54,17 @@ class SearchBooks extends React.Component {
                 </div>
               </div>
               <div className="search-books-results">
-                <ol className="books-grid"></ol>
+                <ol className="books-grid">	
+					{this.state.searchedForBooks.length > 0
+                     ? this.state.searchedForBooks.forEach((book) => (
+                    	<BookCard 
+                            book={book}
+                            bookHasMoved={this.props.bookHasMoved}
+                            stateValue={this.props.stateValue}
+        				/>
+                    )) : console.log('no books to display')
+					}
+				</ol>
               </div>
           	</div>
         )

@@ -1,4 +1,13 @@
-          	<div className="list-books">
+{showingBooks.map((book) => (
+        <BookCard 
+            book={book}
+            bookHasMoved={this.props.bookHasMoved}
+            stateValue={this.props.stateValue}
+        />
+    ))
+}
+
+<div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
