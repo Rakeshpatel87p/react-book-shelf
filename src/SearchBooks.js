@@ -5,14 +5,16 @@ import BookCard from './BookCard';
 class SearchBooks extends React.Component {
 	constructor(props) {
     	super(props);
-      	this.state = {
-    		query: '',
-        	searchedForBooks: []
-    	}
+
+    }
+  
+    state = {
+    	query: '',
+      	searchedForBooks: []
     }
 
 	componentDidMount() {
-    	//this.queryForBooks(this.state.query)
+    	this.queryForBooks(this.state.query)
     }
       
     updateQuery = (userInput) => {
@@ -28,15 +30,28 @@ class SearchBooks extends React.Component {
             	this.setState(()=> ({
       				searchedForBooks: res
     			}))
-            ))
+            ))      
+          	.catch((err) => {
+          		console.log(`Watch out captain, we have an err: ${err}`);
+      		})
       console.log(this.state.searchedForBooks)
     }
+
+	listOfReturnedBooks = () => (
+    	this.state.searchedForBooks.map((book) => (
+            <BookCard 
+                book={book}
+                bookHasMoved='test'
+                stateValue='test'
+            />
+         ))
+     )
 
 	//console.log(this.state.searchForBooks);
   
   	render() {    
     	const { query } = this.state;
-	  	const { bookHasMoved, stateValue } = this.props;
+	  	//const { bookHasMoved, stateValue } = this.props;
 		
     return (
        		<div className="search-books">
@@ -55,15 +70,7 @@ class SearchBooks extends React.Component {
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">	
-					{this.state.searchedForBooks.length > 0
-                     ? this.state.searchedForBooks.forEach((book) => (
-                    	<BookCard 
-                            book={book}
-                            bookHasMoved={this.props.bookHasMoved}
-                            stateValue={this.props.stateValue}
-        				/>
-                    )) : console.log('no books to display')
-					}
+					{this.listOfReturnedBooks}
 				</ol>
               </div>
           	</div>
