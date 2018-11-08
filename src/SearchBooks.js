@@ -3,18 +3,13 @@ import {search} from './BooksAPI';
 import BookCard from './BookCard';
 
 class SearchBooks extends React.Component {
-	constructor(props) {
-    	super(props);
-
-    }
-  
     state = {
     	query: '',
       	searchedForBooks: []
     }
 
 	componentDidMount() {
-    	this.queryForBooks(this.state.query)
+    	this.getSearchedForBooks
     }
       
     updateQuery = (userInput) => {
@@ -36,8 +31,8 @@ class SearchBooks extends React.Component {
       		})
       console.log(this.state.searchedForBooks)
     }
-
-	listOfReturnedBooks = () => (
+	/*
+	getSearchedForBooks = () => (
     	this.state.searchedForBooks.map((book) => (
             <BookCard 
                 book={book}
@@ -46,12 +41,22 @@ class SearchBooks extends React.Component {
             />
          ))
      )
-
+	*/
 	//console.log(this.state.searchForBooks);
   
   	render() {    
-    	const { query } = this.state;
+    	const { query, searchedForBooks } = this.state;
+		
+		const booksToRender = query === ''
+		? console.log('no books to show')
+		: searchedForBooks.map((book) => (
+            <li key={book.id}>
+            	<div className="book-title">{book.title}</div>
+            </li>
+         ))
 	  	//const { bookHasMoved, stateValue } = this.props;
+		console.log(searchedForBooks);
+		console.log(booksToRender);
 		
     return (
        		<div className="search-books">
@@ -70,7 +75,7 @@ class SearchBooks extends React.Component {
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">	
-					{this.listOfReturnedBooks}
+					{booksToRender}
 				</ol>
               </div>
           	</div>
