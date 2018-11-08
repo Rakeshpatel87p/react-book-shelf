@@ -18,21 +18,25 @@ class SearchBooks extends React.Component {
     updateQuery = (userInput) => {
       this.setState(() => ({
           query: userInput.trim(),
+          searchedForBooks: this.queryForBooks(userInput) || []
       }))
-      this.queryForBooks(userInput);
+      //this.queryForBooks(userInput);
     }
 
 	queryForBooks = (query) => {
 		search(query)
             .then((res) => (
-            	this.setState(()=> ({
+            	console.log(res)
+          		/*
+          		this.setState(()=> ({
       				searchedForBooks: res
     			}))
+                */
             ))      
           	.catch((err) => {
           		console.log(`Watch out captain, we have an err: ${err}`);
       		})
-      console.log(this.state.searchedForBooks)
+      //console.log(this.state.searchedForBooks)
     }
 	/*
 	getSearchedForBooks = () => (
@@ -60,7 +64,7 @@ class SearchBooks extends React.Component {
 			/>
          ))
 	  	//const { bookHasMoved, stateValue } = this.props;
-		console.log(searchedForBooks);
+		//console.log(searchedForBooks);
 		console.log(booksToRender);
 		
     return (
