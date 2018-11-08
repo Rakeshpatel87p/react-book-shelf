@@ -9,7 +9,7 @@ class SearchBooks extends React.Component {
     }
 
 	componentDidMount() {
-    	this.getSearchedForBooks
+    	//this.getSearchedForBooks
     }
       
     updateQuery = (userInput) => {
@@ -50,9 +50,11 @@ class SearchBooks extends React.Component {
 		const booksToRender = query === ''
 		? console.log('no books to show')
 		: searchedForBooks.map((book) => (
-            <li key={book.id}>
-            	<div className="book-title">{book.title}</div>
-            </li>
+        	<BookCard 
+            	book={book}
+            	bookHasMoved='test'
+            	stateValue='test'
+			/>
          ))
 	  	//const { bookHasMoved, stateValue } = this.props;
 		console.log(searchedForBooks);
