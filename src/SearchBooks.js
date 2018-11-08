@@ -3,18 +3,21 @@ import {search} from './BooksAPI';
 import BookCard from './BookCard';
 
 class SearchBooks extends React.Component {
-    state = {
-    	query: '',
-      	searchedForBooks: []
+    constructor(props) {
+    	super(props);
+      	this.state = {
+    		query: '',
+      		searchedForBooks: []
+    	}
     }
-
+  
 	componentDidMount() {
     	//this.getSearchedForBooks
     }
       
     updateQuery = (userInput) => {
       this.setState(() => ({
-          query: userInput.trim()
+          query: userInput.trim(),
       }))
       this.queryForBooks(userInput);
     }
