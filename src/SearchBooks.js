@@ -1,6 +1,6 @@
 import React from 'react';
 import {search} from './BooksAPI';
-import BookCard from './BookCard';
+//import BookCard from './BookCard';
 
 class SearchBooks extends React.Component {
     constructor(props) {
@@ -10,64 +10,30 @@ class SearchBooks extends React.Component {
       		searchedForBooks: []
     	}
     }
-  
-	componentDidUpdate() {
-      	console.log('updated');
-      	const booksToShow = []
-      	this.state.query
-        ? search(this.state.query, 100)
-      		.then((books) => {
-          		console.log(books);
-          		books.forEach(book => {
-           			booksToShow.push(book)
-                  	//booksToShow.push(bookCard)
-                })
-                console.log('books to show ', booksToShow);
-          		this.setState({searchedForBooks: booksToShow})
-        })
-		: console.log('No search to conduct captain');
-    }
       
     updateQuery = (userInput) => {
       this.setState(() => ({
           query: userInput.trim()
       }))
     }
-	queryForBooks = (query) => {
-    	query
-      	? search(query, 100)
-      		.then((res) => {
-          		//res.json();
-          		console.log(res)
-          		console.log(res.json)
-        	})
-      	: console.log('nada')
-    }
 
-	getSearchedForBooks = () => (
-    	this.state.searchedForBooks.map((book) => (
-            <BookCard 
-                book={book}
-                bookHasMoved='test'
-                stateValue='test'
-            />
-         ))
-    )
-
-	//console.log(this.state.searchForBooks);
+	findQueriedBooks = (userInput) => {
+   	 	const booksToShow = [];
+      
+      	this.state.query === ''
+        	? this.setState({searchedForBooks: booksToShow}) //reset array
+      		: search(this.state.query, 100)
+              .then((books) => {
+                  books.forEach((book) => {
+                  	booksToShow.push(book)
+                  })
+           		  this.setState({searchedForBooks: booksToShow})
+              	  console.log('books to show ', booksToShow);   
+          	  })
+      } 
   
   	render() {    
     	const { query, searchedForBooks } = this.state;
-		/*
-		const booksToRender = query === ''
-		? console.log('no books to show')
-		: searchedForBooks.map((book) => (
-          	<li>{book.title}</li>
-         ))
-         */
-	  	//const { bookHasMoved, stateValue } = this.props;
-		//console.log(searchedForBooks);
-		//console.log(booksToRender);
 		
     return (
        		<div className="search-books">
@@ -80,13 +46,20 @@ class SearchBooks extends React.Component {
                   <input 
 					type="text" 
 					placeholder="Search by title or author"
-					value={this.state.query}
-					onChange={(event) => {this.updateQuery(event.target.value)}}/>
+					value={query}
+					onChange={(event) => {
+                      this.updateQuery(event.target.value);
+					  this.findQueriedBooks(event.target.value);
+					}}/>
                 </div>
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">
-					{this.getSearchedForBooks}
+					{searchedForBooks.map(book => (
+                    	<li key={book.id}>
+                      		<p>{book.title}</p>
+                      	</li>
+                    ))}
 				</ol>
               </div>
           	</div>
