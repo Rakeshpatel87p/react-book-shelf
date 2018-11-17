@@ -21,15 +21,26 @@ class SearchBooks extends React.Component {
    	 	const booksToShow = [];
       
       	this.state.query === ''
-        	? this.setState({searchedForBooks: booksToShow}) //reset array
+        	? [] //reset array
       		: search(this.state.query, 100)
               .then((books) => {
                   books.forEach((book) => {
                   	booksToShow.push(book)
                   })
-           		  this.setState({searchedForBooks: booksToShow})
-              	  console.log('books to show ', booksToShow);   
-          	  }) //set another then statement then run it through the bookcards
+          		return booksToShow
+          	  })
+      		  .then((booksToShow) => {
+        		console.log(booksToShow);
+          		const bookCards = booksToShow.map((book) => {
+                	   <BookCard 
+                  			book={book}
+                  			bookHasMoved='test'
+                  			stateValue='test'
+						/>
+                })
+                console.log('weve got bookcards ', bookCards);
+                this.setState({searchedForBooks: bookCards});
+        	  })
       } 
   
   	render() {    
@@ -56,14 +67,8 @@ class SearchBooks extends React.Component {
               <div className="search-books-results">
                 <ol className="books-grid">
 					{/*failures: 1) Set condition where we map only when length > 0*/}
-					{searchedForBooks.length > 0
-                     ? searchedForBooks.map(book => (
-                    	<BookCard 
-                  			book={book}
-                  			bookHasMoved='test'
-                  			stateValue='test'
-						/>
-                    ))
+					{searchedForBooks
+                     ? searchedForBooks
 					: console.log('naw sucker')
 					}
 				</ol>
