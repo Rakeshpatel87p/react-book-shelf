@@ -1,6 +1,6 @@
 import React from 'react';
 import {search} from './BooksAPI';
-//import BookCard from './BookCard';
+import BookCard from './BookCard';
 
 class SearchBooks extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class SearchBooks extends React.Component {
                   })
            		  this.setState({searchedForBooks: booksToShow})
               	  console.log('books to show ', booksToShow);   
-          	  })
+          	  }) //set another then statement then run it through the bookcards
       } 
   
   	render() {    
@@ -55,11 +55,17 @@ class SearchBooks extends React.Component {
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">
-					{searchedForBooks.map(book => (
-                    	<li key={book.id}>
-                      		<p>{book.title}</p>
-                      	</li>
-                    ))}
+					{/*failures: 1) Set condition where we map only when length > 0*/}
+					{searchedForBooks.length > 0
+                     ? searchedForBooks.map(book => (
+                    	<BookCard 
+                  			book={book}
+                  			bookHasMoved='test'
+                  			stateValue='test'
+						/>
+                    ))
+					: console.log('naw sucker')
+					}
 				</ol>
               </div>
           	</div>
