@@ -23,7 +23,7 @@ class SearchBooks extends React.Component {
       	this.state.query === ''
         	? [] //reset array
       		: search(this.state.query, 100)
-              .then((books) => {
+              .then((books) => { // arrow then () is an implicit return => { return ()}
                   books.forEach((book) => {
                   	booksToShow.push(book)
                   })
