@@ -37,14 +37,8 @@ class SearchBooks extends React.Component {
                   			stateValue='test'
 						/>
                 ))
-                //console.log('weve got bookcards ', bookCards);
-                return bookCards;
-                
+                this.setState({searchedForBooks: bookCards});
         	  })
-              .then((bookCards) => {
-              	console.log(bookCards);
-                  this.setState({searchedForBooks: bookCards});
-              })
       } 
   
   	render() {    
@@ -70,7 +64,6 @@ class SearchBooks extends React.Component {
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">
-					{/*failures: 1) Set condition where we map only when length > 0*/}
 					{searchedForBooks}
 				</ol>
               </div>

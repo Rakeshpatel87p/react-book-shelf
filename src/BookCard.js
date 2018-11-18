@@ -13,7 +13,7 @@ class BookCard extends React.Component {
                            style={{ 
                                     width: 128, 
                                     height: 193, 
-                                    backgroundImage: `url("${book.imageLinks.smallThumbnail}")` }}>
+                                    backgroundImage:  `url("${book.imageLinks.smallThumbnail}")` }}>
                       </div>
 					
                       <BookShelfChanger 
@@ -23,7 +23,7 @@ class BookCard extends React.Component {
                       />
                     </div>
                     <div className="book-title">{book.title}</div>
-                    //<div className="book-authors">{book.authors[0]}</div>
+                    <div className="book-authors">{book.authors[0]}</div>
                   </div>
                 </li>
         )
