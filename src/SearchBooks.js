@@ -30,17 +30,21 @@ class SearchBooks extends React.Component {
           		return booksToShow
           	  })
       		  .then((booksToShow) => {
-        		console.log(booksToShow);
-          		const bookCards = booksToShow.map((book) => {
-                	   <BookCard 
+          		const bookCards = booksToShow.map((book) => (
+                  		<BookCard 
                   			book={book}
                   			bookHasMoved='test'
                   			stateValue='test'
 						/>
-                })
-                console.log('weve got bookcards ', bookCards);
-                this.setState({searchedForBooks: bookCards});
+                ))
+                //console.log('weve got bookcards ', bookCards);
+                return bookCards;
+                
         	  })
+              .then((bookCards) => {
+              	console.log(bookCards);
+                  this.setState({searchedForBooks: bookCards});
+              })
       } 
   
   	render() {    
@@ -67,10 +71,7 @@ class SearchBooks extends React.Component {
               <div className="search-books-results">
                 <ol className="books-grid">
 					{/*failures: 1) Set condition where we map only when length > 0*/}
-					{searchedForBooks
-                     ? searchedForBooks
-					: console.log('naw sucker')
-					}
+					{searchedForBooks}
 				</ol>
               </div>
           	</div>
