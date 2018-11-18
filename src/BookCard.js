@@ -4,7 +4,6 @@ import BookShelfChanger from './BookShelfChanger';
 class BookCard extends React.Component {
 	render() {
     	const {book, bookHasMoved, stateValue} = this.props;
-      	console.log(book)
       	return (
                 <li key={book.id}>
                   <div className="book">

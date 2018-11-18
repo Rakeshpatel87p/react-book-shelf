@@ -31,7 +31,8 @@ class SearchBooks extends React.Component {
           	  })
       		  .then((booksToShow) => {
           		const bookCards = booksToShow.map((book) => (
-                  		<BookCard 
+                  		<BookCard
+                  			key={book.id}
                   			book={book}
                   			bookHasMoved='test'
                   			stateValue='test'
