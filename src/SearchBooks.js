@@ -34,8 +34,8 @@ class SearchBooks extends React.Component {
                   		<BookCard
                   			key={book.id}
                   			book={book}
-                  			bookHasMoved='test'
-                  			stateValue='test'
+                  			bookHasMoved={this.props.bookHasMoved}
+                  			stateValue={!book.shelf ? 'none' : book.shelf}
 						/>
                 ))
                 this.setState({searchedForBooks: bookCards});

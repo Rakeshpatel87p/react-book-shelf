@@ -11,6 +11,7 @@ class BookShelfChanger extends React.Component {
       const {bookHasMoved, book} = this.props;
       const newShelfValue = event.target.value;
       bookHasMoved(book, newShelfValue)
+      this.setState({selectedValue: newShelfValue})
   	}
   
   	render() {
