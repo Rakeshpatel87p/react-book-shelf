@@ -30,6 +30,9 @@ class SearchBooks extends React.Component {
           		return booksToShow
           	  })
       		  .then((booksToShow) => {
+				const allBookTitles = this.props.allBookTitles;
+         		//filter books based on title, then pass that shelfValue to stateValue
+          		const bookTitlesFromSearch = booksToShow.map((b) => (b.title))
           		const bookCards = booksToShow.map((book) => (
                   		<BookCard
                   			key={book.id}
@@ -38,6 +41,7 @@ class SearchBooks extends React.Component {
                   			stateValue={!book.shelf ? 'none' : book.shelf}
 						/>
                 ))
+				console.log(bookCards)
                 this.setState({searchedForBooks: bookCards});
         	  })
       } 

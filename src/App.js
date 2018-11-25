@@ -3,6 +3,7 @@ import { getAll, update } from './BooksAPI';
 import './App.css';
 import BookShelf from './BookShelf';
 import SearchBooks from './SearchBooks';
+import { Link, Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class BooksApp extends React.Component {
       showSearchPage: true,
       read: [],
       currentlyReading: [],
-      wantToRead: []
+      wantToRead: [],
+      allTitles: []
     }
   }
 
@@ -23,18 +25,21 @@ class BooksApp extends React.Component {
       const bookShelves = {
       	read: [],
         currentlyReading: [],
-        wantToRead: []
+        wantToRead: [],
+        allTitles: []
       }
       getAll().then((value) => {
           value.forEach((book) => {	
             const bookShelf = book.shelf;
-            bookShelves[bookShelf].push(book)
+            bookShelves[bookShelf].push(book);
+            bookShelves.allTitles.push({title: book.title, shelf: book.shelf})
           })
 
       	  this.setState({
               read: bookShelves.read, 
               currentlyReading: bookShelves.currentlyReading, 
-              wantToRead: bookShelves.wantToRead 
+              wantToRead: bookShelves.wantToRead,
+              allTitles: bookShelves.allTitles
           });
       })
       .catch((err) => {
@@ -69,14 +74,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-       		
-       		<SearchBooks 
-       			returnToShelves={this.returnToShelves} 
-      			bookHasMoved={this.bookHasMoved}/>
-    
-        ) : (
-          	<div className="list-books">
+        <Route exact path='/' render={() => (
+    		<div className="list-books">
             	<div className="list-books-title">
               		<h1>MyReads</h1>
             	</div>
@@ -100,11 +99,18 @@ class BooksApp extends React.Component {
 						bookHasMoved={this.bookHasMoved}
                     />
                 </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
+                <div className="open-search">
+                  <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+                </div>
 			</div>
-        )}
+    	)} />
+		<Route path='/search' render={() => (
+        	<SearchBooks 
+       			returnToShelves={this.returnToShelves} 
+      			bookHasMoved={this.bookHasMoved}
+				allBookTitles={this.state.allTitles}/>
+        )} />
+  
       </div>
     	)
     }
