@@ -1,6 +1,7 @@
 import React from 'react';
 import {search} from './BooksAPI';
 import BookCard from './BookCard';
+import { Link } from 'react-router-dom';
 
 class SearchBooks extends React.Component {
     constructor(props) {
@@ -52,10 +53,9 @@ class SearchBooks extends React.Component {
     return (
        		<div className="search-books">
               <div className="search-books-bar">
-                <a 
-        			className="close-search" 
-        			onClick={() => {this.props.returnToShelves()}}>Close
-				</a>
+      			<Link to="/" className="close-search">
+      				Close
+      			</Link>
                 <div className="search-books-input-wrapper">
                   <input 
 					type="text" 
