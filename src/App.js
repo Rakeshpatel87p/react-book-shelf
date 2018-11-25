@@ -66,10 +66,6 @@ class BooksApp extends React.Component {
     })
   }
 
-  returnToShelves = () => {
-  	this.setState({ showSearchPage: false })
-  }
-
   render() {
     return (
       <div className="app">
@@ -104,8 +100,7 @@ class BooksApp extends React.Component {
 			</div>
     	)} />
 		<Route path='/search' render={() => (
-        	<SearchBooks 
-       			returnToShelves={this.returnToShelves} 
+        	<SearchBooks
       			bookHasMoved={this.bookHasMoved}
 				allBookTitles={this.state.allTitles}/>
         )} />
