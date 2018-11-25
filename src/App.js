@@ -9,7 +9,6 @@ class BooksApp extends React.Component {
   constructor(props) {
   	super(props);
     this.state = {
-      showSearchPage: true,
       read: [],
       currentlyReading: [],
       wantToRead: [],
@@ -100,7 +99,7 @@ class BooksApp extends React.Component {
                     />
                 </div>
                 <div className="open-search">
-                  <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+				  <Link to='/search'>Add a book</Link>
                 </div>
 			</div>
     	)} />
