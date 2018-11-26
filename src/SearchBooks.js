@@ -20,10 +20,8 @@ class SearchBooks extends React.Component {
 
 	findQueriedBooks = (userInput) => {
    	 	const booksToShow = [];
-      
-      	this.state.query === ''
-        	? [] //reset array
-      		: search(this.state.query, 100)
+      	if (!(this.state.query === '')) {
+        	search(this.state.query, 100)
               .then((books) => { // arrow then () is an implicit return => { return ()}
                   books.forEach((book) => {
                   	booksToShow.push(book)
@@ -31,9 +29,6 @@ class SearchBooks extends React.Component {
           		return booksToShow
           	  })
       		  .then((booksToShow) => {
-				const allBookTitles = this.props.allBookTitles;
-         		//filter books based on title, then pass that shelfValue to stateValue
-          		const bookTitlesFromSearch = booksToShow.map((b) => (b.title))
           		const bookCards = booksToShow.map((book) => (
                   		<BookCard
                   			key={book.id}
@@ -45,6 +40,7 @@ class SearchBooks extends React.Component {
 				console.log(bookCards)
                 this.setState({searchedForBooks: bookCards});
         	  })
+        }
       } 
   
   	render() {    
