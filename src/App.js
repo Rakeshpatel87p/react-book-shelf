@@ -57,6 +57,19 @@ class BooksApp extends React.Component {
   }
 
   bookHasMoved = (book, shelf) => {
+    this.state.allTitles.filter((b) => {
+      	console.log(b.title.includes(book.title));
+    	if (!(b.title.includes(book.title))) {
+        	    update(book, shelf).then((res) => {
+                this.clearBookShelves();
+                this.organizeBooks();
+            })
+            .catch((err) => {
+                  console.log(`Watch out captain, we have an err: ${err}`);
+            })
+        }
+    })
+    /*
     update(book, shelf).then((res) => {
         this.clearBookShelves();
         this.organizeBooks();
@@ -64,6 +77,7 @@ class BooksApp extends React.Component {
     .catch((err) => {
           console.log(`Watch out captain, we have an err: ${err}`);
     })
+    */
   }
 
   render() {

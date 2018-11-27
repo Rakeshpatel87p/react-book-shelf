@@ -22,21 +22,8 @@ class SearchBooks extends React.Component {
    	 	const booksToShow = [];
       	if (!(this.state.query === '')) {
         	search(this.state.query, 100)
-              .then((books) => {
-                  books.forEach((book) => {
-                  	booksToShow.push(book)
-                  })
-          		return booksToShow
-          	  })
       		  .then((booksToShow) => {
                 //cross-check list here
-                const favoritedBookTitles = this.props.allBookTitles;
-                const test = booksToShow.forEach((book) => {
-                	favoritedBookTitles.filter((b) => {
-                    	console.log(`title ${b.title} compare to favoritedBookTitles ${book.title}`)
-                      	b.title.includes(book.title)
-                    })
-                })
                 const savedBooks = this.props.allBookTitles;
                 booksToShow.forEach((book) => {
                 	savedBooks.filter((b) => {
@@ -46,6 +33,7 @@ class SearchBooks extends React.Component {
                     })	
                   
                 })
+              	//create bookcards for modified books
           		const bookCards = booksToShow.map((book) => (
                   		<BookCard
                   			key={book.id}
@@ -54,9 +42,11 @@ class SearchBooks extends React.Component {
                   			stateValue={!book.shelf ? 'none' : book.shelf}
 						/>
                 ))
-				console.log(bookCards)
                 this.setState({searchedForBooks: bookCards});
         	  })
+        } else {
+          	console.log('made it here!');
+        	this.setState({searchedForBooks: []});
         }
       } 
   
