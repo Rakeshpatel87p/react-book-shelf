@@ -14,12 +14,11 @@ class SearchBooks extends React.Component {
       
   updateQuery = (userInput) => {
     this.setState(() => ({
-        query: userInput.trim()
+        query: userInput
     }))
   }
 
   findQueriedBooks = (userInput) => {
-      //const booksToShow = [];
       if (!(this.state.query === '')) {
           console.log(`searching for term ${userInput}`);
           search(this.state.query, 100)
@@ -48,7 +47,7 @@ class SearchBooks extends React.Component {
               })
       } else {
           console.log('made it here!');
-          this.setState({ searchedForBooks: null });
+          this.setState({ searchedForBooks: [] });
       }
   }
   
