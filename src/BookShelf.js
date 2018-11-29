@@ -6,7 +6,8 @@ class BookShelf extends Component {
       
     	const { listOfBooks, bookHasMoved, stateValue, shelfValue } = this.props;
   		const bookCards = listOfBooks.map((book) =>
-            	<BookCard 
+            	<BookCard
+                  key={book.id}
                   book={book}
                   bookHasMoved={bookHasMoved}
                   stateValue={stateValue}

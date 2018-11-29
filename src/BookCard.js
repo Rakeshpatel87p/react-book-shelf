@@ -15,7 +15,8 @@ class BookCard extends React.Component {
                                   backgroundImage: book.imageLinks && `url("${book.imageLinks.smallThumbnail}")`
                               }}>
                             </div>
-                      <BookShelfChanger 
+                      <BookShelfChanger
+						key={book.id}
                         stateValue={stateValue}
                         book={book}
                         bookHasMoved={bookHasMoved}
