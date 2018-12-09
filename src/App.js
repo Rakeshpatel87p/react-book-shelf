@@ -68,15 +68,6 @@ class BooksApp extends React.Component {
             })
         }
     })
-    /*
-    update(book, shelf).then((res) => {
-        this.clearBookShelves();
-        this.organizeBooks();
-    })
-    .catch((err) => {
-          console.log(`Watch out captain, we have an err: ${err}`);
-    })
-    */
   }
 
   render() {
