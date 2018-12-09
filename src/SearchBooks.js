@@ -12,45 +12,46 @@ class SearchBooks extends React.Component {
     	}
 	}
       
-  updateQuery = (userInput) => {
-    this.setState(() => ({
-        query: userInput
-    }))
-  }
+    updateQuery = (userInput) => {
+      this.setState(() => ({
+          query: userInput
+      }))
+      this.findQueriedBooks(userInput);
+    }
 
-  findQueriedBooks = (userInput) => {
-      if (!(this.state.query === '')) {
-          console.log(`searching for term ${userInput}`);
-          search(this.state.query, 100)
-              .then((booksToShow) => {
-                  //cross-check list here
-                  const savedBooks = this.props.allBookTitles;
-                  if (booksToShow) {
-                      booksToShow.forEach((book) => {
-                          savedBooks.filter((b) => {
-                              if (b.title.includes(book.title)) {
-                                  book.shelf = b.shelf
-                              }
-                          })
-                      })
-                  }
+    findQueriedBooks = (userInput) => {
+        search(this.state.query, 100)
+            .then((booksToShow) => {
+                //cross-check list here
+                const savedBooks = this.props.allBookTitles;
+                if (booksToShow.length > 0) {
+                    booksToShow.forEach((book) => {
+                        savedBooks.filter((b) => {
+                            if (b.title.includes(book.title)) {
+                                book.shelf = b.shelf
+                            }
+                        })
+                    })
+
                   //create bookcards for modified books
                   const bookCards = booksToShow.map((book) => (
-                      <BookCard
-                        key={book.id}
-                        book={book}
-                        bookHasMoved={this.props.bookHasMoved}
-                        stateValue={!book.shelf ? 'none' : book.shelf}
-                      />
+                    <BookCard
+                      key={book.id}
+                      book={book}
+                      bookHasMoved={this.props.bookHasMoved}
+                      stateValue={!book.shelf ? 'none' : book.shelf}
+                    />
                   ))
-                  this.setState({ searchedForBooks: bookCards });
-              })
-      } else {
-          console.log('made it here!');
-          this.setState({ searchedForBooks: [] });
-      }
+
+                  this.setState({ searchedForBooks: bookCards }); 
+                }                  
+            })
   }
-  
+
+	resetBookGrid = () => {
+    	this.setState({query: '', searchedForBooks: []})
+    }
+
   	render() {    
     	const { query, searchedForBooks } = this.state;
 		
@@ -66,8 +67,10 @@ class SearchBooks extends React.Component {
 					placeholder="Search by title or author"
 					value={query}
 					onChange={(event) => {
-                      this.updateQuery(event.target.value);
-					  this.findQueriedBooks(event.target.value);
+                     event.target.value === "" 
+                      ? this.resetBookGrid()
+					  : this.updateQuery(event.target.value);
+
 					}}/>
                 </div>
               </div>
